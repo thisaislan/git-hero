@@ -40,7 +40,7 @@ namespace Githero.Ultils
                 CloneBareIntoRepoFolder(gitCloneLink);
                 CreateGraphFile();
                 DeleteRepoFolder();
-                getGraphPathAction(GraphFilePath);
+                getGraphPathAction.Invoke(GraphFilePath);
 
             }).Start();
         }
