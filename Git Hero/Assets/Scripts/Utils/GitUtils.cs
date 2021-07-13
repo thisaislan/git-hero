@@ -6,31 +6,31 @@ namespace Githero.Ultils
 {
     public class GitUtils
     {
-        private string repoFolderName = "Repo";
-        private string graphFileName = "graph";
+        private const string RepoFolderName = "Repo";
+        private const string GraphFilePath = "graph";
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-        private string fileName = "powerShell.exe";
-        private string deleteFileCommand = "Remove-Item -Recurse -Force";
-        private string createFolderCommand = "New-Item -itemType Directory -Name";
-        private string concateneCommandsChar = ";";
-        private string createGitGraphCommand =
+        private const string FileName = "powerShell.exe";
+        private const string DeleteFileCommand = "Remove-Item -Recurse -Force";
+        private const string CreateFolderCommand = "New-Item -itemType Directory -Name";
+        private const string ConcateneCommandsChar = ";";
+        private const string CreateGitGraphCommand =
             "git --no-pager log --graph --full-history --all --pretty=format:\"\" > ..\\..\\";
 
 #else
-        private string fileName = "/bin/bash";
-        private string deleteFileCommand = "rm -rf";
-        private string createFolderCommand = "mkdir";
-        private string concateneCommandsChar = "&&";
-        private string createGitGraphCommand =
+        private const string FileName = "/bin/bash";
+        private const string DeleteFileCommand = "rm -rf";
+        private const string CreateFolderCommand = "mkdir";
+        private const string ConcateneCommandsChar = "&&";
+        private const string CreateGitGraphCommand =
             "git --no-pager log --graph --full-history --all --pretty=format:\"\" > ../../";
 #endif
 
-        private string gotToFolderCommand = "cd";
-        private string gotToFirstAvaliableFolder = "cd *";
-        private string cloneBareCommand = "git clone --bare";
+        private const string GotToFolderCommand = "cd";
+        private const string GotToFirstAvaliableFolder = "cd *";
+        private const string CloneBareCommand = "git clone --bare";
 
-        public void GetRepoGraph(string gitCloneLink, Action<string> getGraphNameAction)
+        public void GetRepoGraph(string gitCloneLink, Action<string> getGraphPathAction)
         {
             new Thread(delegate ()
             {
@@ -40,34 +40,34 @@ namespace Githero.Ultils
                 CloneBareIntoRepoFolder(gitCloneLink);
                 CreateGraphFile();
                 DeleteRepoFolder();
-                getGraphNameAction(graphFileName);
+                getGraphPathAction(GraphFilePath);
 
             }).Start();
         }
 
         private void DeleteGraphFile() =>
-            StartCommand($"{deleteFileCommand} {graphFileName}", false);
+            StartCommand($"{DeleteFileCommand} {GraphFilePath}", false);
 
         private void DeleteRepoFolder() =>
-            StartCommand($"{deleteFileCommand} {repoFolderName}", false);
+            StartCommand($"{DeleteFileCommand} {RepoFolderName}", false);
 
         private void CreateFolder() =>
-            StartCommand($"{createFolderCommand} {repoFolderName}");
+            StartCommand($"{CreateFolderCommand} {RepoFolderName}");
 
         private void CloneBareIntoRepoFolder(string gitCloneLink) =>
             StartCommand(
-                $"{gotToFolderCommand} {repoFolderName}" +
-                $" {concateneCommandsChar}" +
-                $" {cloneBareCommand} {gitCloneLink}");
+                $"{GotToFolderCommand} {RepoFolderName}" +
+                $" {ConcateneCommandsChar}" +
+                $" {CloneBareCommand} {gitCloneLink}");
 
         private void CreateGraphFile()
         {
             StartCommand(
-            $"{gotToFolderCommand} {repoFolderName}" +
-            $" {concateneCommandsChar}" +
-            $" {gotToFirstAvaliableFolder}" +
-            $" {concateneCommandsChar}" +
-            $" {createGitGraphCommand}{graphFileName}");
+            $"{GotToFolderCommand} {RepoFolderName}" +
+            $" {ConcateneCommandsChar}" +
+            $" {GotToFirstAvaliableFolder}" +
+            $" {ConcateneCommandsChar}" +
+            $" {CreateGitGraphCommand}{GraphFilePath}");
         }
 
         private void StartCommand(string argument, bool allowException = true)
@@ -79,7 +79,7 @@ namespace Githero.Ultils
 #endif
                 var startInfo = new ProcessStartInfo()
                 {
-                    FileName = fileName,
+                    FileName = FileName,
                     UseShellExecute = false,
                     RedirectStandardError = true,
                     RedirectStandardInput = true,
