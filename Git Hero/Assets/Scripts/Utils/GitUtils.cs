@@ -7,35 +7,48 @@ namespace Githero.Ultils
     public class GitUtils
     {
         private string repoFolderName = "Repo";
+        private string graphFileName = "graph";
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         private string fileName = "powerShell.exe";
-        private string deleteFolderCommand = "Remove-Item -Recurse -Force";
+        private string deleteFileCommand = "Remove-Item -Recurse -Force";
         private string createFolderCommand = "New-Item -itemType Directory -Name";
         private string concateneCommandsChar = ";";
+        private string createGitGraphCommand =
+            "git --no-pager log --graph --full-history --all --pretty=format:\"\" > ..\\..\\";
+
 #else
         private string fileName = "/bin/bash";
-        private string deleteFolderCommand = "rm -rf";
+        private string deleteFileCommand = "rm -rf";
         private string createFolderCommand = "mkdir";
         private string concateneCommandsChar = "&&";
+        private string createGitGraphCommand =
+            "git --no-pager log --graph --full-history --all --pretty=format:\"\" > ../../";
 #endif
 
         private string gotToFolderCommand = "cd";
+        private string gotToFirstAvaliableFolder = "cd *";
         private string cloneBareCommand = "git clone --bare";
-
-        public void GetRepo(string gitCloneLink)
+               
+        public void GetRepoGraph(string gitCloneLink)
         {
             new Thread(delegate ()
             {
+                DeleteGraphFile();
                 DeleteRepoFolder();
                 CreateFolder();
                 CloneBareIntoRepoFolder(gitCloneLink);
+                CreateGraphFile();
+                DeleteRepoFolder();
 
             }).Start();
         }
 
+        private void DeleteGraphFile() =>
+            StartCommand($"{deleteFileCommand} {graphFileName}", false);
+
         private void DeleteRepoFolder() =>
-            StartCommand($"{deleteFolderCommand} {repoFolderName}", false);
+            StartCommand($"{deleteFileCommand} {repoFolderName}", false);
 
         private void CreateFolder() =>
             StartCommand($"{createFolderCommand} {repoFolderName}");
@@ -45,6 +58,16 @@ namespace Githero.Ultils
                 $"{gotToFolderCommand} {repoFolderName}" +
                 $" {concateneCommandsChar}" +
                 $" {cloneBareCommand} {gitCloneLink}");
+
+        private void CreateGraphFile()
+        {
+            StartCommand(
+            $"{gotToFolderCommand} {repoFolderName}" +
+            $" {concateneCommandsChar}" +
+            $" {gotToFirstAvaliableFolder}" +
+            $" {concateneCommandsChar}" +
+            $" {createGitGraphCommand}{graphFileName}");
+        }
 
         private void StartCommand(string argument, bool allowException = true)
         {
