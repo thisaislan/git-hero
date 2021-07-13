@@ -29,8 +29,8 @@ namespace Githero.Ultils
         private string gotToFolderCommand = "cd";
         private string gotToFirstAvaliableFolder = "cd *";
         private string cloneBareCommand = "git clone --bare";
-               
-        public void GetRepoGraph(string gitCloneLink)
+
+        public void GetRepoGraph(string gitCloneLink, Action<string> getGraphNameAction)
         {
             new Thread(delegate ()
             {
@@ -40,6 +40,7 @@ namespace Githero.Ultils
                 CloneBareIntoRepoFolder(gitCloneLink);
                 CreateGraphFile();
                 DeleteRepoFolder();
+                getGraphNameAction(graphFileName);
 
             }).Start();
         }
