@@ -81,9 +81,11 @@ namespace Githero.Managers
 
         private int ConvertToNote(string line)
         {
-            line = line.Replace(" ", "");
+            line = RemoveWhitespaces(line);
             return line.IndexOf(NoteRepresentationOnLine) % NumberOfNotes;
         }
+
+        private string RemoveWhitespaces(string line) => line.Replace(" ", "");
 
         private void StartGame()
         {
