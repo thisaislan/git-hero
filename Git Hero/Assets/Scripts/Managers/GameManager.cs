@@ -14,6 +14,7 @@ namespace Githero.Managers
 
         private const int MaxSheetMusicSize = 25;
         private const int NumberOfNotes = 4;
+        private const string NoteRepresentationOnLine = "*";
 
         private ReaderFileUtils readerFileUtils = new ReaderFileUtils();
         private StringBuilder sheetMusicString = new StringBuilder(MaxSheetMusicSize);
@@ -78,7 +79,7 @@ namespace Githero.Managers
         private int ConvertToNote(string line)
         {
             line = line.Replace(" ", "");
-            return line.IndexOf("*") % NumberOfNotes;
+            return line.IndexOf(NoteRepresentationOnLine) % NumberOfNotes;
         }
 
         private void StartGame()
