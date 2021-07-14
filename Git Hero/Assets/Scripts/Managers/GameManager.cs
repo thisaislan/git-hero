@@ -67,8 +67,11 @@ namespace Githero.Managers
 
         private void HandleNewLine(string line)
         {
-            if (line.Contains("*")) { AddOnSheetMusic(line); }
+            if (HasNote(line)) { AddOnSheetMusic(line); }
         }
+
+        private bool HasNote(string line) =>
+            line.Contains(NoteRepresentationOnLine);
 
         private void AddOnSheetMusic(string line)
         {
