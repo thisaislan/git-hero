@@ -1,23 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ScrollUV : MonoBehaviour
+namespace Githero.UV
 {
-    [SerializeField]
-    private float scrollX;
-    [SerializeField]
-    private float scrollY;
-    [SerializeField]
 
-    void Update()
+    public class ScrollUV : MonoBehaviour
     {
-        var offsetX = Time.time * scrollX;
-        var offsetY = Time.time * scrollY;
+        [SerializeField]
+        private float scrollX;
+        [SerializeField]
+        private float scrollY;
+        [SerializeField]
 
-        var offsetVector = new Vector2(offsetX, offsetY);
-        var renderer = GetComponent<Renderer>();
+        void Update()
+        {
+            var offsetX = Time.time * scrollX;
+            var offsetY = Time.time * scrollY;
 
-        renderer.material.mainTextureOffset = offsetVector;
+            var offsetVector = new Vector2(offsetX, offsetY);
+            var renderer = GetComponent<Renderer>();
+
+            renderer.material.mainTextureOffset = offsetVector;
+        }
     }
+
 }
