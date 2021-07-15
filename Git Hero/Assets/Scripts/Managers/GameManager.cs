@@ -13,7 +13,7 @@ namespace Githero.Managers
         [SerializeField]
         private TMP_InputField gitInputFiled;
         [SerializeField]
-        private TriggerHelper guitarTriggerHelper;
+        private TriggerHelper newNoteTriggerHelper;
         [SerializeField]
         private TriggerHelper destroyerTriggerHelper;
         [SerializeField]
@@ -41,7 +41,7 @@ namespace Githero.Managers
 
         private void Awake()
         {
-            guitarTriggerHelper.actionOnTriggerEnter = (_) => SpawnNote();
+            newNoteTriggerHelper.actionOnTriggerEnter = (_) => SpawnNote();
 
             destroyerTriggerHelper.actionOnTriggerEnter = (collider) =>
             {
