@@ -3,6 +3,7 @@ using TMPro;
 using System.Text;
 using Githero.Ultils;
 using Githero.Helpers;
+using Githero.GameObject;
 using System;
 
 namespace Githero.Managers
@@ -17,7 +18,7 @@ namespace Githero.Managers
         [SerializeField]
         private TriggerHelper destroyerTriggerHelper;
         [SerializeField]
-        private Transform noteObj;
+        private Transform noteObject;
 
         private const int MaxSheetMusicSize = 25;
         private const int NumberOfNotes = 4;
@@ -133,7 +134,9 @@ namespace Githero.Managers
             var noteXPosition = GetNoteXPosition(note);
             var notePosition = new Vector3(noteXPosition, NoteYPosition, NoteZPosition);
 
-            Instantiate(noteObj, notePosition, noteObj.rotation);
+            var noteInstance = Instantiate(noteObject, notePosition, noteObject.rotation);
+
+            noteInstance.GetComponent<Note>().SetColor(note);
         }
 
         private float GetNoteXPosition(int note)
