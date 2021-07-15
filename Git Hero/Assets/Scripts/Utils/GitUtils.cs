@@ -1,6 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading;
 
 namespace Githero.Ultils
 {
@@ -32,17 +32,23 @@ namespace Githero.Ultils
 
         public void GetRepoGraph(string gitCloneLink, Action<string> getGraphPathAction)
         {
-            new Thread(delegate ()
-            {
+            var  backgroundWorker = new BackgroundWorker();
+
+            backgroundWorker.DoWork += (sender, args) => {
                 DeleteGraphFile();
                 DeleteRepoFolder();
                 CreateFolder();
                 CloneBareIntoRepoFolder(gitCloneLink);
                 CreateGraphFile();
                 DeleteRepoFolder();
-                getGraphPathAction.Invoke(GraphFilePath);
+            };
 
-            }).Start();
+            backgroundWorker.RunWorkerCompleted += (sender, args) =>
+            {
+                getGraphPathAction.Invoke(GraphFilePath);
+            };
+
+            backgroundWorker.RunWorkerAsync();
         }
 
         private void DeleteGraphFile() =>
