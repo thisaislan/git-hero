@@ -479,6 +479,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1622959382264135944, guid: cf0057692deeae740852bae1f5e800d1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 1622959382264135947, guid: cf0057692deeae740852bae1f5e800d1, type: 3}
       propertyPath: m_Name
       value: DestoyerTriggerHelper
@@ -663,7 +667,7 @@ GameObject:
   - component: {fileID: 1204862362}
   - component: {fileID: 1204862366}
   m_Layer: 0
-  m_Name: Guitar
+  m_Name: Bass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -799,7 +803,7 @@ MonoBehaviour:
   gitInputFiled: {fileID: 0}
   newNoteTriggerHelper: {fileID: 1513364460}
   destroyerTriggerHelper: {fileID: 731434771}
-  noteObj: {fileID: 7157379929592125608, guid: 600337e3c98a86d4c9965d0a76c8c57b, type: 3}
+  noteObject: {fileID: 7157379929592125608, guid: 600337e3c98a86d4c9965d0a76c8c57b, type: 3}
 --- !u!4 &1230649916
 Transform:
   m_ObjectHideFlags: 0
@@ -975,7 +979,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6037792416296246817, guid: 7889ea71d0e335245ac370630008a55b, type: 3}
       propertyPath: m_Name
-      value: RightGuitarLateral
+      value: RightBassrLateral
       objectReference: {fileID: 0}
     - target: {fileID: 6037792416296246821, guid: 7889ea71d0e335245ac370630008a55b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1152,6 +1156,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1622959382264135944, guid: cf0057692deeae740852bae1f5e800d1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 1622959382264135947, guid: cf0057692deeae740852bae1f5e800d1, type: 3}
       propertyPath: m_Name
       value: NewNoteTrigger
@@ -1232,7 +1240,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6037792416296246817, guid: 7889ea71d0e335245ac370630008a55b, type: 3}
       propertyPath: m_Name
-      value: LeftGuitarLateral
+      value: LeftBassLateral
       objectReference: {fileID: 0}
     - target: {fileID: 6037792416296246821, guid: 7889ea71d0e335245ac370630008a55b, type: 3}
       propertyPath: m_LocalPosition.x
