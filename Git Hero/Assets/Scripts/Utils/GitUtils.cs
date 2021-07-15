@@ -24,7 +24,7 @@ namespace Githero.Ultils
         private const string ConcateneCommandsChar = "&&";
         private const string CreateGitGraphCommand =
             "git --no-pager log --graph --full-history --all --pretty=format:\"\" > ../../";
-#endif
+#endif      
 
         private const string GotToFolderCommand = "cd";
         private const string GotToFirstAvaliableFolder = "cd *";
