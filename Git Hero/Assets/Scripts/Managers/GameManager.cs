@@ -25,8 +25,8 @@ namespace Githero.Managers
 
         private const string NoteRepresentationOnLine = "*";
 
-        private const float NoteYPosition = 3;
-        private const float NoteZPosition = 28;
+        private const float NoteYPosition = 3f;
+        private const float NoteZPosition = 28f;
 
         private const float FirstNoteXPosition = -3.6f;
         private const float SecondNoteXPosition = -1.2f;
