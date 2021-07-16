@@ -5,11 +5,19 @@ namespace Githero.Helpers
 {
     public class TriggerHelper : MonoBehaviour
     {
-        public Action<Collider> actionOnTriggerEnter { private get; set; }
+        public bool OnTrigger { get; private set; }
+
+        public Action<Collider> ActionOnTriggerEnter { private get; set; }
 
         private void OnTriggerEnter(Collider other)
         {
-            actionOnTriggerEnter?.Invoke(other);
+            OnTrigger = true;
+            ActionOnTriggerEnter?.Invoke(other);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            OnTrigger = false;
         }
 
     }

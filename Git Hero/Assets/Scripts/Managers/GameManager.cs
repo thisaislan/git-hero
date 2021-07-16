@@ -42,9 +42,9 @@ namespace Githero.Managers
 
         private void Awake()
         {
-            newNoteTriggerHelper.actionOnTriggerEnter = (_) => SpawnNote();
+            newNoteTriggerHelper.ActionOnTriggerEnter = (_) => SpawnNote();
 
-            destroyerTriggerHelper.actionOnTriggerEnter = (collider) =>
+            destroyerTriggerHelper.ActionOnTriggerEnter = (collider) =>
             {
                 Destroy(collider.gameObject);
                 AddNewNote();
