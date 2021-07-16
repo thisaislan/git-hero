@@ -5,16 +5,11 @@ namespace Githero.UV
 
     public class ScrollUV : MonoBehaviour
     {
-        [SerializeField]
-        private float scrollX;
-        [SerializeField]
-        private float scrollY;
-        [SerializeField]
 
         void Update()
         {
-            var offsetX = Time.time * scrollX;
-            var offsetY = Time.time * scrollY;
+            var offsetX = 0f;
+            var offsetY = Time.time * -(Constants.Forces.GravityMultiplier * 0.03f);
 
             var offsetVector = new Vector2(offsetX, offsetY);
             var renderer = GetComponent<Renderer>();
