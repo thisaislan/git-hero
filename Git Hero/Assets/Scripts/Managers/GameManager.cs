@@ -2,6 +2,8 @@
 using TMPro;
 using System.Text;
 using Githero.Ultils;
+using Githero.Helpers;
+using Githero.GameObject;
 using System;
 
 namespace Githero.Managers
@@ -11,17 +13,43 @@ namespace Githero.Managers
     {
         [SerializeField]
         private TMP_InputField gitInputFiled;
+        [SerializeField]
+        private TriggerHelper newNoteTriggerHelper;
+        [SerializeField]
+        private TriggerHelper destroyerTriggerHelper;
+        [SerializeField]
+        private Transform noteObject;
 
         private const int MaxSheetMusicSize = 25;
         private const int NumberOfNotes = 4;
+
         private const string NoteRepresentationOnLine = "*";
 
-        private ReaderFileUtils readerFileUtils = new ReaderFileUtils();
+        private const float NoteYPosition = 3f;
+        private const float NoteZPosition = 28f;
+
+        private const float FirstNoteXPosition = -3.6f;
+        private const float SecondNoteXPosition = -1.2f;
+        private const float ThirdNoteXPosition = 1.2f;
+        private const float FourthNoteXPosition = 3.6f;
+
+        private ReaderFile readerFileUtils = new ReaderFile();
         private StringBuilder sheetMusicString = new StringBuilder(MaxSheetMusicSize);
 
         private bool hasMoreLinesToRead = true;
         private int skipLines = 0;
         private string graphPath;
+
+        private void Awake()
+        {
+            newNoteTriggerHelper.ActionOnTriggerEnter = (_) => SpawnNote();
+
+            destroyerTriggerHelper.ActionOnTriggerEnter = (collider) =>
+            {
+                Destroy(collider.gameObject);
+                AddNewNote();
+            };
+        }
 
         public void GetGitGraph()
         {
@@ -32,22 +60,19 @@ namespace Githero.Managers
                 gitUtils.GetRepoGraph(gitInputFiled.text, (string graphPath) =>
                 {
                     this.graphPath = graphPath;
-                    AddNewNotes(MaxSheetMusicSize, () => StartGame());
+                    AddNewNotes(MaxSheetMusicSize, SpawnNote);
                 });
             }
         }
 
-        private void RemoveFirstNote() =>
-            sheetMusicString.Remove(0, 1);
-
         private void AddNewNote() =>
             AddNewNotes(sheetMusicString.Length + 1);
 
-        private void AddNewNotes(int sizeExpected, Action actionOnEnd = null)
+        private void AddNewNotes(int expectedSize, Action actionOnEnd = null)
         {
             if (!hasMoreLinesToRead) { return; }
 
-            readerFileUtils.Read(graphPath, skipLines, (line) =>
+            readerFileUtils.ReadLine(graphPath, skipLines, (line) =>
             {
                 if (line == null)
                 {
@@ -59,7 +84,7 @@ namespace Githero.Managers
                     skipLines++;
                     HandleNewLine(line);
 
-                    if (sheetMusicString.Length < sizeExpected) { AddNewNotes(sizeExpected, actionOnEnd); }
+                    if (sheetMusicString.Length < expectedSize) { AddNewNotes(expectedSize, actionOnEnd); }
                     else { actionOnEnd?.Invoke(); }
                 }
             });
@@ -87,9 +112,43 @@ namespace Githero.Managers
 
         private string RemoveWhitespaces(string line) => line.Replace(" ", "");
 
-        private void StartGame()
+        private void SpawnNote()
         {
-            // TODO
+            if (sheetMusicString.Length != 0)
+            {
+                var note = GetFirstNote();
+
+                RemoveFirstNote();
+                SpawnNote(note);
+            }
+        }
+
+        private int GetFirstNote() =>
+            Int16.Parse(sheetMusicString.ToString(0, 1));
+
+        private void RemoveFirstNote() =>
+            sheetMusicString.Remove(0, 1);
+
+        private void SpawnNote(int note)
+        {
+            var noteXPosition = GetNoteXPosition(note);
+            var notePosition = new Vector3(noteXPosition, NoteYPosition, NoteZPosition);
+
+            var noteInstance = Instantiate(noteObject, notePosition, noteObject.rotation);
+
+            noteInstance.GetComponent<Note>().SetColor(note);
+        }
+
+        private float GetNoteXPosition(int note)
+        {
+            switch (note)
+            {
+                case 0: return FirstNoteXPosition;
+                case 1: return SecondNoteXPosition;
+                case 2: return ThirdNoteXPosition;
+                // case 3
+                default: return FourthNoteXPosition;
+            }
         }
 
     }

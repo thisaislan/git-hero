@@ -1,28 +1,34 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Threading;
 
 namespace Githero.Ultils
 {
-    public class ReaderFileUtils
+    public class ReaderFile
     {
-
-        public void Read(string filePath, int skip, Action<string> getLineAction)
+        public void ReadLine(string filePath, int skip, Action<string> getLineAction)
         {
-            new Thread(delegate ()
-            {
+            var backgroundWorker = new BackgroundWorker();
+
+            backgroundWorker.DoWork += (sender, args) => {
                 try
                 {
                     var line = File.ReadLines(filePath).Skip(skip).Take(1).First();
-                    getLineAction.Invoke(line);
+                    args.Result = line;
                 }
                 catch (InvalidOperationException)
                 {
-                    getLineAction.Invoke(null);
+                    args.Result = null;
                 }
+            };
 
-            }).Start();
+            backgroundWorker.RunWorkerCompleted += (sender, args) =>
+             {
+                 getLineAction.Invoke((string)args.Result);
+             };
+
+            backgroundWorker.RunWorkerAsync();
         }
 
     }
