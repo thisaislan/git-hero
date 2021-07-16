@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Githero.Constants
+﻿namespace Githero.Constants
 {
     public static class Colors
     {
