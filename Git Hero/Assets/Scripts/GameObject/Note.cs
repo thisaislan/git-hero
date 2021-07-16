@@ -4,6 +4,15 @@ namespace Githero.GameObject
 {
     public class Note : MonoBehaviour
     {
+        public void FixedUpdate()
+        {
+            var rigidbody = GetComponent<Rigidbody>();
+
+            rigidbody.AddForce(
+                Physics.gravity * Constants.Forces.GravityMultiplier,
+                ForceMode.Acceleration);
+        }
+
         public void SetColor(int numberOfNote)
         {
             string colorHex;
