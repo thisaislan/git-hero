@@ -2,12 +2,11 @@
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Githero.Ultils
+namespace Githero.Menu.Ultils
 {
     public class GitUtils
     {
         private const string RepoFolderName = "Repo";
-        private const string GraphFilePath = "graph";
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         private const string FileName = "powerShell.exe";
@@ -16,7 +15,6 @@ namespace Githero.Ultils
         private const string ConcateneCommandsChar = ";";
         private const string CreateGitGraphCommand =
             "git --no-pager log --graph --full-history --all --pretty=format:\"\" > ..\\..\\";
-
 #else
         private const string FileName = "/bin/bash";
         private const string DeleteFileCommand = "rm -rf";
@@ -30,11 +28,12 @@ namespace Githero.Ultils
         private const string GotToFirstAvaliableFolder = "cd *";
         private const string CloneBareCommand = "git clone --bare";
 
-        public void GetRepoGraph(string gitCloneLink, Action<string> getGraphPathAction)
+        public void GetRepoGraph(string gitCloneLink, Action getGraphPathAction)
         {
-            var  backgroundWorker = new BackgroundWorker();
+            var backgroundWorker = new BackgroundWorker();
 
-            backgroundWorker.DoWork += (sender, args) => {
+            backgroundWorker.DoWork += (sender, args) =>
+            {
                 DeleteGraphFile();
                 DeleteRepoFolder();
                 CreateFolder();
@@ -45,14 +44,15 @@ namespace Githero.Ultils
 
             backgroundWorker.RunWorkerCompleted += (sender, args) =>
             {
-                getGraphPathAction.Invoke(GraphFilePath);
+                if (args.Error == null) { getGraphPathAction.Invoke(); }
+                else { throw new Exception(args.Error.Message); }
             };
 
             backgroundWorker.RunWorkerAsync();
         }
 
         private void DeleteGraphFile() =>
-            StartCommand($"{DeleteFileCommand} {GraphFilePath}", false);
+            StartCommand($"{DeleteFileCommand} {Constants.Strings.GraphFilePath}", false);
 
         private void DeleteRepoFolder() =>
             StartCommand($"{DeleteFileCommand} {RepoFolderName}", false);
@@ -73,7 +73,7 @@ namespace Githero.Ultils
             $" {ConcateneCommandsChar}" +
             $" {GotToFirstAvaliableFolder}" +
             $" {ConcateneCommandsChar}" +
-            $" {CreateGitGraphCommand}{GraphFilePath}");
+            $" {CreateGitGraphCommand}{Constants.Strings.GraphFilePath}");
         }
 
         private void StartCommand(string argument, bool allowException = true)

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Githero.Helpers
+namespace Githero.Game.Helpers
 {
     public class TriggerHelper : MonoBehaviour
     {

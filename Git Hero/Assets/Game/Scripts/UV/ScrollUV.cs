@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Githero.UV
+namespace Githero.Game.UV
 {
-
     public class ScrollUV : MonoBehaviour
     {
 

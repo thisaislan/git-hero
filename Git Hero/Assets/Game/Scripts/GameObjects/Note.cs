@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Githero.GameObject
+namespace Githero.Game.GameObjects
 {
     public class Note : MonoBehaviour
     {
