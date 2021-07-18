@@ -1,4 +1,4 @@
-﻿namespace Githero.Constants
+﻿namespace Githero.Game.Constants
 {
     public static class Colors
     {

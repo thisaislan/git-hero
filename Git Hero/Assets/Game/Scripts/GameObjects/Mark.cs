@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 
-namespace Githero.GameObject
+namespace Githero.Game.GameObjects
 {
     public class Mark : MonoBehaviour
     {
         [SerializeField, Range(0, 3)]
         private int markPosition;
 
-        private void Awake()
-        {
+        private void Awake() =>
             SetColor();
-        }
 
         public void SetColor()
         {

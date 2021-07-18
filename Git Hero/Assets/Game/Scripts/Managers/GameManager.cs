@@ -2,21 +2,23 @@
 using TMPro;
 using System.Text;
 using Githero.Ultils;
-using Githero.Helpers;
-using Githero.GameObject;
+using Githero.Game.Helpers;
+using Githero.Game.GameObjects;
 using System;
 
-namespace Githero.Managers
+namespace Githero.Game.Managers
 {
-
     public class GameManager : MonoBehaviour
     {
         [SerializeField]
         private TMP_InputField gitInputFiled;
+
         [SerializeField]
         private TriggerHelper newNoteTriggerHelper;
+
         [SerializeField]
         private TriggerHelper destroyerTriggerHelper;
+
         [SerializeField]
         private Transform noteObject;
 
@@ -38,7 +40,6 @@ namespace Githero.Managers
 
         private bool hasMoreLinesToRead = true;
         private int skipLines = 0;
-        private string graphPath;
 
         private void Awake()
         {
@@ -51,19 +52,8 @@ namespace Githero.Managers
             };
         }
 
-        public void GetGitGraph()
-        {
-            if (gitInputFiled.text.Length != 0)
-            {
-                var gitUtils = new GitUtils();
-
-                gitUtils.GetRepoGraph(gitInputFiled.text, (string graphPath) =>
-                {
-                    this.graphPath = graphPath;
-                    AddNewNotes(MaxSheetMusicSize, SpawnNote);
-                });
-            }
-        }
+        public void StartGame() =>
+            AddNewNotes(MaxSheetMusicSize, SpawnNote);
 
         private void AddNewNote() =>
             AddNewNotes(sheetMusicString.Length + 1);
@@ -72,7 +62,7 @@ namespace Githero.Managers
         {
             if (!hasMoreLinesToRead) { return; }
 
-            readerFileUtils.ReadLine(graphPath, skipLines, (line) =>
+            readerFileUtils.ReadLine(Githero.Constants.Strings.GraphFilePath, skipLines, (line) =>
             {
                 if (line == null)
                 {

@@ -17,7 +17,7 @@ namespace Githero.Ultils
                     var line = File.ReadLines(filePath).Skip(skip).Take(1).First();
                     args.Result = line;
                 }
-                catch (InvalidOperationException)
+                catch
                 {
                     args.Result = null;
                 }
