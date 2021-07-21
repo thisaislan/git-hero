@@ -82,6 +82,9 @@ namespace Githero.Game.Managers
             }
         }
 
+        public void StarExitAnimation() =>
+            StartAnimationsParametersTrigger(AnimationsParameters.CloseSceneTrigger);
+
         private void StartAnimationsParametersTrigger(AnimationsParameters animationsParameters)
         {
             currentAnimationsParameters = animationsParameters;
