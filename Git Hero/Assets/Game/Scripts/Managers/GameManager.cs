@@ -5,13 +5,29 @@ using Githero.Ultils;
 using Githero.Game.Helpers;
 using Githero.Game.GameObjects;
 using System;
+using UnityEngine.UI;
 
 namespace Githero.Game.Managers
 {
     public class GameManager : MonoBehaviour
     {
+        private enum AnimationsParameters
+        {
+            CloseSceneTrigger,
+            PlayTrigger
+        }
+
         [SerializeField]
-        private TMP_InputField gitInputFiled;
+        private Canvas canvas;
+
+        [SerializeField]
+        private Text title;
+
+        [SerializeField]
+        private Text subtitle;
+
+        [SerializeField]
+        private Text tip;
 
         [SerializeField]
         private TriggerHelper newNoteTriggerHelper;
@@ -21,6 +37,9 @@ namespace Githero.Game.Managers
 
         [SerializeField]
         private Transform noteObject;
+
+        [SerializeField]
+        private Animator animator;
 
         private const int MaxSheetMusicSize = 25;
         private const int NumberOfNotes = 4;
@@ -35,11 +54,14 @@ namespace Githero.Game.Managers
         private const float ThirdNoteXPosition = 1.2f;
         private const float FourthNoteXPosition = 3.6f;
 
+        private AnimationsParameters currentAnimationsParameters;
         private ReaderFile readerFileUtils = new ReaderFile();
         private StringBuilder sheetMusicString = new StringBuilder(MaxSheetMusicSize);
 
         private bool hasMoreLinesToRead = true;
         private int skipLines = 0;
+
+        private int countDown = 3;
 
         private void Awake()
         {
@@ -52,8 +74,51 @@ namespace Githero.Game.Managers
             };
         }
 
-        public void StartGame() =>
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StartAnimationsParametersTrigger(AnimationsParameters.PlayTrigger);
+            }
+        }
+
+        private void StartAnimationsParametersTrigger(AnimationsParameters animationsParameters)
+        {
+            currentAnimationsParameters = animationsParameters;
+            animator.SetTrigger(currentAnimationsParameters.ToString());
+        }
+
+        private void SetCountDown() =>
+            title.text = countDown.ToString();
+
+        private void DecreaseCountDown()
+        {
+            countDown--;
+            title.text = countDown.ToString();
+        }
+
+        private void HideTitle() =>
+            SetActive(title.gameObject, false);
+
+        private void HideSubtitle() =>
+            SetActive(subtitle.gameObject, false);
+
+        private void HideTip() =>
+            SetActive(tip.gameObject, false);
+
+        private void HideCanvas() =>
+            SetActive(canvas.gameObject, false);
+
+        private void ShowCanvas() =>
+            SetActive(canvas.gameObject, true);
+
+        private void SetActive(GameObject gameObject, bool active) =>
+            gameObject.SetActive(active);
+
+        private void StartGame() =>
             AddNewNotes(MaxSheetMusicSize, SpawnNote);
+
+        private void LoadMenuScene() => Core.App.LoadMenuScene();
 
         private void AddNewNote() =>
             AddNewNotes(sheetMusicString.Length + 1);
