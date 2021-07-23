@@ -319,6 +319,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 4
   m_AspectRatio: 2.4
+--- !u!114 &177843940 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2336830661146009118, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+  m_PrefabInstance: {fileID: 1302213906}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448d658a9137346449ca275690901848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &237901796 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3011818760395266361, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
@@ -5341,6 +5352,39 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &658562143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2336830661146009118, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+  m_PrefabInstance: {fileID: 1373487141}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448d658a9137346449ca275690901848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &669068670 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2336830661146009118, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+  m_PrefabInstance: {fileID: 1795985511}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448d658a9137346449ca275690901848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &689405545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2336830661146009118, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+  m_PrefabInstance: {fileID: 7509347706971620695}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448d658a9137346449ca275690901848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -5659,9 +5703,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '0
-
-'
+  m_Text: 0
 --- !u!222 &866050958
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6012,7 +6054,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 260.00003, y: -0.0000034111886}
+  m_AnchoredPosition: {x: 262, y: 12}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1152417276
@@ -6048,9 +6090,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Miss
-
-'
+  m_Text: Miss
 --- !u!222 &1152417277
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6213,8 +6253,15 @@ MonoBehaviour:
   title: {fileID: 1822850362}
   subtitle: {fileID: 928275699}
   tip: {fileID: 1825078335}
+  titleGamePlay: {fileID: 1103555868}
+  hitScore: {fileID: 866050957}
+  missScore: {fileID: 2124678504}
   newNoteTriggerHelper: {fileID: 1513364460}
   destroyerTriggerHelper: {fileID: 731434771}
+  leftMarkTrigger: {fileID: 689405545}
+  upMarkTrigger: {fileID: 658562143}
+  rightMarkTrigger: {fileID: 669068670}
+  downMarkTrigger: {fileID: 177843940}
   noteObject: {fileID: 7157379929592125608, guid: 600337e3c98a86d4c9965d0a76c8c57b, type: 3}
   animator: {fileID: 1230649917}
 --- !u!4 &1230649916
@@ -6729,9 +6776,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Hit
-
-'
+  m_Text: Hit
 --- !u!222 &1662212016
 CanvasRenderer:
   m_ObjectHideFlags: 0
