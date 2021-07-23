@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1487fb19566fc2244812945926b53628, type: 3}
-  m_Color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0.23529412}
+  m_Color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0.47058824}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -129,8 +129,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.2, z: 0.9937218}
-  m_Center: {x: 0, y: 0, z: -1}
+  m_Size: {x: 0.17152333, y: 0.25169078, z: 0.3301845}
+  m_Center: {x: -0.30629265, y: -0.14933302, z: -0.6682591}
 --- !u!33 &4140096635935599538
 MeshFilter:
   m_ObjectHideFlags: 0
