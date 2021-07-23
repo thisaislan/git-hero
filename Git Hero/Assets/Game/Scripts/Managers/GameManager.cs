@@ -6,6 +6,7 @@ using Githero.Game.Helpers;
 using Githero.Game.GameObjects;
 using System;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace Githero.Game.Managers
 {
@@ -30,10 +31,31 @@ namespace Githero.Game.Managers
         private Text tip;
 
         [SerializeField]
+        private Text titleGamePlay;
+
+        [SerializeField]
+        private Text hitScore;
+
+        [SerializeField]
+        private Text missScore;
+
+        [SerializeField]
         private TriggerHelper newNoteTriggerHelper;
 
         [SerializeField]
         private TriggerHelper destroyerTriggerHelper;
+
+        [SerializeField]
+        private TriggerHelper leftMarkTrigger;
+
+        [SerializeField]
+        private TriggerHelper upMarkTrigger;
+
+        [SerializeField]
+        private TriggerHelper rightMarkTrigger;
+
+        [SerializeField]
+        private TriggerHelper downMarkTrigger;
 
         [SerializeField]
         private Transform noteObject;
@@ -61,29 +83,98 @@ namespace Githero.Game.Managers
         private bool hasMoreLinesToRead = true;
         private int skipLines = 0;
 
+        private int timeToCloseScreen = 5;
+
         private int countDown = 3;
+        private int missCount = 0;
+        private int hitCount = 0;
 
         private void Awake()
         {
+            titleGamePlay.text = Core.App.NameOfGitProject;
+
             newNoteTriggerHelper.ActionOnTriggerEnter = (_) => SpawnNote();
 
             destroyerTriggerHelper.ActionOnTriggerEnter = (collider) =>
             {
                 Destroy(collider.gameObject);
                 AddNewNote();
+                NewMiss();
             };
         }
 
         private void Update()
         {
+            //TODO - fazer um tratar melhor a inicialização do jogo 
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 StartAnimationsParametersTrigger(AnimationsParameters.PlayTrigger);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                if (leftMarkTrigger.OnTrigger)
+                {
+                    Destroy(leftMarkTrigger.GameObjectOnCollision);
+                    NewHit();
+                }
+                else
+                {
+                    NewMiss();
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (upMarkTrigger.OnTrigger)
+                {
+                    Destroy(upMarkTrigger.GameObjectOnCollision);
+                    NewHit();
+                }
+                else
+                {
+                    NewMiss();
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (rightMarkTrigger.OnTrigger)
+                {
+                    Destroy(rightMarkTrigger.GameObjectOnCollision);
+                    NewHit();
+                }
+                else
+                {
+                    NewMiss();
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (downMarkTrigger.OnTrigger)
+                {
+                    Destroy(downMarkTrigger.GameObjectOnCollision);
+                    NewHit();
+                }
+                else
+                {
+                    NewMiss();
+                }
             }
         }
 
         public void StarExitAnimation() =>
             StartAnimationsParametersTrigger(AnimationsParameters.CloseSceneTrigger);
+
+        private void NewMiss()
+        {
+            missCount++;
+            missScore.text = missCount.ToString();
+        }
+
+        private void NewHit()
+        {
+            hitCount++;
+            hitScore.text = hitCount.ToString();
+        }
 
         private void StartAnimationsParametersTrigger(AnimationsParameters animationsParameters)
         {
@@ -179,6 +270,17 @@ namespace Githero.Game.Managers
                 RemoveFirstNote();
                 SpawnNote(note);
             }
+            else
+            {
+                //TODO - avoid call that animation two times
+                StartCoroutine(CloseScene());
+            }
+        }
+
+        private IEnumerator CloseScene()
+        {
+            yield return new WaitForSeconds(timeToCloseScreen);
+            StarExitAnimation();
         }
 
         private int GetFirstNote() =>
