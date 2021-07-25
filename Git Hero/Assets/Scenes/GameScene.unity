@@ -209,9 +209,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1230649918}
-        m_TargetAssemblyTypeName: Githero.UI.GameSceneUI, Assembly-CSharp
-        m_MethodName: StarExitAnimation
+      - m_Target: {fileID: 1230649915}
+        m_TargetAssemblyTypeName: Githero.Game.Managers.GameManager, Assembly-CSharp
+        m_MethodName: StartExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

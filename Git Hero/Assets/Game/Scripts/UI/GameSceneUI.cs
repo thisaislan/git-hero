@@ -89,6 +89,9 @@ namespace Githero.UI
         public void StarPlayAnimation() =>
             StartAnimationsParametersTrigger(AnimationsParameters.PlayTrigger);
 
+        public void StarExitAnimation() =>
+            StartAnimationsParametersTrigger(AnimationsParameters.CloseSceneTrigger);
+
         private void SetActive(GameObject gameObject, bool active) =>
             gameObject.SetActive(active);
 
@@ -97,9 +100,6 @@ namespace Githero.UI
             currentAnimationsParameters = animationsParameters;
             animator.SetTrigger(currentAnimationsParameters.ToString());
         }
-
-        private void StarExitAnimation() =>
-            StartAnimationsParametersTrigger(AnimationsParameters.CloseSceneTrigger);
 
         private IEnumerator CloseScene()
         {

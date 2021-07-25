@@ -10,6 +10,22 @@ namespace Githero.Game.Managers
 {
     public class GameManager : MonoBehaviour
     {
+        /* 
+         * At first I wanted to create a machinne state to deal with this,
+         * but at some point I found that this would be too much for a simple proof of concept.
+         * But if you want to see a nice and simple explanation of the finite state machine, follow this link:
+         * 
+         * Channel: Infallible Code
+         * Video: How to Code a Simple State Machine (Unity Tutorial):
+         * Link: https://www.youtube.com/watch?v=G1bd75R10m4
+        */
+
+        private enum GameState
+        {
+            Open,
+            Play,
+            Close
+        }
 
         [SerializeField]
         private GameSceneUI gameSceneUI;
@@ -47,7 +63,8 @@ namespace Githero.Game.Managers
         private const float SecondNoteXPosition = -1.2f;
         private const float ThirdNoteXPosition = 1.2f;
         private const float FourthNoteXPosition = 3.6f;
-                
+
+        private GameState currentGameState = GameState.Open;
         private ReaderFile readerFileUtils = new ReaderFile();
         private StringBuilder sheetMusicString = new StringBuilder(MaxSheetMusicSize);
 
@@ -70,64 +87,57 @@ namespace Githero.Game.Managers
 
         private void Update()
         {
-            //TODO - fazer um tratar melhor a inicialização do jogo 
-            if (Input.GetKeyDown(KeyCode.Space))
+            switch (currentGameState)
             {
-                gameSceneUI.StarPlayAnimation();
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                if (leftMark.GameObjectOnCollision != null)
-                {
-                    Destroy(leftMark.GameObjectOnCollision);
-                    gameSceneUI.NewHit();
-                }
-                else
-                {
-                    gameSceneUI.NewMiss();
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                if (upMark.GameObjectOnCollision != null)
-                {
-                    Destroy(upMark.GameObjectOnCollision);
-                    gameSceneUI.NewHit();
-                }
-                else
-                {
-                    gameSceneUI.NewMiss();
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                if (rightMark.GameObjectOnCollision != null)
-                {
-                    Destroy(rightMark.GameObjectOnCollision);
-                    gameSceneUI.NewHit();
-                }
-                else
-                {
-                    gameSceneUI.NewMiss();
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                if (downMark.GameObjectOnCollision != null)
-                {
-                    Destroy(downMark.GameObjectOnCollision);
-                    gameSceneUI.NewHit();
-                }
-                else
-                {
-                    gameSceneUI.NewMiss();
-                }
+                case GameState.Open: HandleOpenStateInput(); break;
+                case GameState.Play: HandlePlayStateInput(); break;
+                // case GameState.Close: - Do nothing
+                default: break;
             }
         }
 
         public void StartGame() =>
             AddNewNotes(MaxSheetMusicSize, SpawnNote);
+
+        public void StartExit()
+        {
+            if (currentGameState != GameState.Close)
+            {
+                currentGameState = GameState.Close;
+                gameSceneUI.StarExitAnimation();
+            }
+        }
+
+        private void HandleOpenStateInput()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                currentGameState = GameState.Play;
+                gameSceneUI.StarPlayAnimation();
+            }
+        }
+
+        private void HandlePlayStateInput()
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) { HandleArrowInput(leftMark); }
+            else if (Input.GetKeyDown(KeyCode.UpArrow)) { HandleArrowInput(upMark); }
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) { HandleArrowInput(rightMark); }
+            else if (Input.GetKeyDown(KeyCode.DownArrow)) { HandleArrowInput(downMark); }
+        }
+
+        private void HandleArrowInput(Mark mark)
+        {
+
+            if (mark.GameObjectOnCollision != null)
+            {
+                Destroy(mark.GameObjectOnCollision);
+                gameSceneUI.NewHit();
+            }
+            else
+            {
+                gameSceneUI.NewMiss();
+            }
+        }
 
         private void LoadMenuScene() => Core.App.LoadMenuScene();
 
@@ -189,8 +199,11 @@ namespace Githero.Game.Managers
             }
             else
             {
-                //TODO - avoid call that animation two times
-                gameSceneUI.StartCloseScene();
+                if (currentGameState != GameState.Close)
+                {
+                    currentGameState = GameState.Close;
+                    gameSceneUI.StartCloseScene();
+                }
             }
         }
 
