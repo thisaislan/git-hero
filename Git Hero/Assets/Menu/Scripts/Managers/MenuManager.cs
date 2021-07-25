@@ -103,7 +103,10 @@ namespace Githero.Menu.Managers
         }
 
         private bool IsAValidLine(string line) =>
-            line != null && RemoveWhitespaces(line).Length > 0;
+            line != null && !IsLineVoid(RemoveWhitespaces(line));
+
+        private bool IsLineVoid(string line) =>
+            line.Length == 0;
 
         private string RemoveWhitespaces(string line) => line.Replace(" ", "");
 
