@@ -48,10 +48,13 @@ namespace Githero.Menu.Managers
         }
 
         private void SetActiveOnInput(bool active) =>
-            inputField.gameObject.SetActive(active);
+            SetGameObjectActive(inputField.gameObject, active);
+
+        private void SetGameObjectActive(GameObject gameObject, bool active) =>
+            gameObject.SetActive(active);
 
         private void SetActiveOnLoading(bool active) =>
-            loadingTrasnform.gameObject.SetActive(active);
+            SetGameObjectActive(loadingTrasnform.gameObject, active);
 
         private void CheckErrorText()
         {
@@ -59,9 +62,9 @@ namespace Githero.Menu.Managers
         }
 
         private void SetActiveOnError(bool active) =>
-            errorText.gameObject.SetActive(active);
+            SetGameObjectActive(errorText.gameObject, active);
 
-        public void GetGitGraph(string gitUrl)
+        private void GetGitGraph(string gitUrl)
         {
             try
             {
