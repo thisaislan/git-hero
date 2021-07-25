@@ -1,43 +1,18 @@
 ﻿using UnityEngine;
-using TMPro;
 using System.Text;
 using Githero.Ultils;
 using Githero.Game.Helpers;
 using Githero.Game.GameObjects;
 using System;
-using UnityEngine.UI;
-using System.Collections;
+using Githero.UI;
 
 namespace Githero.Game.Managers
 {
     public class GameManager : MonoBehaviour
     {
-        private enum AnimationsParameters
-        {
-            CloseSceneTrigger,
-            PlayTrigger
-        }
 
         [SerializeField]
-        private Canvas canvas;
-
-        [SerializeField]
-        private Text title;
-
-        [SerializeField]
-        private Text subtitle;
-
-        [SerializeField]
-        private Text tip;
-
-        [SerializeField]
-        private Text titleGamePlay;
-
-        [SerializeField]
-        private Text hitScore;
-
-        [SerializeField]
-        private Text missScore;
+        private GameSceneUI gameSceneUI;
 
         [SerializeField]
         private TriggerHelper newNoteTriggerHelper;
@@ -60,8 +35,6 @@ namespace Githero.Game.Managers
         [SerializeField]
         private Transform noteObject;
 
-        [SerializeField]
-        private Animator animator;
 
         private const int MaxSheetMusicSize = 25;
         private const int NumberOfNotes = 4;
@@ -75,23 +48,19 @@ namespace Githero.Game.Managers
         private const float SecondNoteXPosition = -1.2f;
         private const float ThirdNoteXPosition = 1.2f;
         private const float FourthNoteXPosition = 3.6f;
-
-        private AnimationsParameters currentAnimationsParameters;
+                
         private ReaderFile readerFileUtils = new ReaderFile();
         private StringBuilder sheetMusicString = new StringBuilder(MaxSheetMusicSize);
 
         private bool hasMoreLinesToRead = true;
         private int skipLines = 0;
 
-        private int timeToCloseScreen = 5;
-
-        private int countDown = 3;
-        private int missCount = 0;
-        private int hitCount = 0;
+        public void StartGame() =>
+            AddNewNotes(MaxSheetMusicSize, SpawnNote);
 
         private void Awake()
         {
-            titleGamePlay.text = Core.App.NameOfGitProject;
+            gameSceneUI.SetGameplayTitle(Core.App.NameOfGitProject);
 
             newNoteTriggerHelper.ActionOnTriggerEnter = (_) => SpawnNote();
 
@@ -99,7 +68,7 @@ namespace Githero.Game.Managers
             {
                 Destroy(collider.gameObject);
                 AddNewNote();
-                NewMiss();
+                gameSceneUI.NewMiss();
             };
         }
 
@@ -108,7 +77,7 @@ namespace Githero.Game.Managers
             //TODO - fazer um tratar melhor a inicialização do jogo 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                StartAnimationsParametersTrigger(AnimationsParameters.PlayTrigger);
+                gameSceneUI.StarPlayAnimation();
             }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -116,11 +85,11 @@ namespace Githero.Game.Managers
                 if (leftMarkTrigger.OnTrigger)
                 {
                     Destroy(leftMarkTrigger.GameObjectOnCollision);
-                    NewHit();
+                    gameSceneUI.NewHit();
                 }
                 else
                 {
-                    NewMiss();
+                    gameSceneUI.NewMiss();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -128,11 +97,11 @@ namespace Githero.Game.Managers
                 if (upMarkTrigger.OnTrigger)
                 {
                     Destroy(upMarkTrigger.GameObjectOnCollision);
-                    NewHit();
+                    gameSceneUI.NewHit();
                 }
                 else
                 {
-                    NewMiss();
+                    gameSceneUI.NewMiss();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -140,11 +109,11 @@ namespace Githero.Game.Managers
                 if (rightMarkTrigger.OnTrigger)
                 {
                     Destroy(rightMarkTrigger.GameObjectOnCollision);
-                    NewHit();
+                    gameSceneUI.NewHit();
                 }
                 else
                 {
-                    NewMiss();
+                    gameSceneUI.NewMiss();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -152,65 +121,14 @@ namespace Githero.Game.Managers
                 if (downMarkTrigger.OnTrigger)
                 {
                     Destroy(downMarkTrigger.GameObjectOnCollision);
-                    NewHit();
+                    gameSceneUI.NewHit();
                 }
                 else
                 {
-                    NewMiss();
+                    gameSceneUI.NewMiss();
                 }
             }
         }
-
-        public void StarExitAnimation() =>
-            StartAnimationsParametersTrigger(AnimationsParameters.CloseSceneTrigger);
-
-        private void NewMiss()
-        {
-            missCount++;
-            missScore.text = missCount.ToString();
-        }
-
-        private void NewHit()
-        {
-            hitCount++;
-            hitScore.text = hitCount.ToString();
-        }
-
-        private void StartAnimationsParametersTrigger(AnimationsParameters animationsParameters)
-        {
-            currentAnimationsParameters = animationsParameters;
-            animator.SetTrigger(currentAnimationsParameters.ToString());
-        }
-
-        private void SetCountDown() =>
-            title.text = countDown.ToString();
-
-        private void DecreaseCountDown()
-        {
-            countDown--;
-            title.text = countDown.ToString();
-        }
-
-        private void HideTitle() =>
-            SetActive(title.gameObject, false);
-
-        private void HideSubtitle() =>
-            SetActive(subtitle.gameObject, false);
-
-        private void HideTip() =>
-            SetActive(tip.gameObject, false);
-
-        private void HideCanvas() =>
-            SetActive(canvas.gameObject, false);
-
-        private void ShowCanvas() =>
-            SetActive(canvas.gameObject, true);
-
-        private void SetActive(GameObject gameObject, bool active) =>
-            gameObject.SetActive(active);
-
-        private void StartGame() =>
-            AddNewNotes(MaxSheetMusicSize, SpawnNote);
 
         private void LoadMenuScene() => Core.App.LoadMenuScene();
 
@@ -273,14 +191,8 @@ namespace Githero.Game.Managers
             else
             {
                 //TODO - avoid call that animation two times
-                StartCoroutine(CloseScene());
+                gameSceneUI.StartCloseScene();
             }
-        }
-
-        private IEnumerator CloseScene()
-        {
-            yield return new WaitForSeconds(timeToCloseScreen);
-            StarExitAnimation();
         }
 
         private int GetFirstNote() =>

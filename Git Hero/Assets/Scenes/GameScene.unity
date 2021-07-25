@@ -209,8 +209,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1230649915}
-        m_TargetAssemblyTypeName: Githero.Game.Managers.GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1230649918}
+        m_TargetAssemblyTypeName: Githero.UI.GameSceneUI, Assembly-CSharp
         m_MethodName: StarExitAnimation
         m_Mode: 1
         m_Arguments:
@@ -5259,7 +5259,7 @@ GameObject:
   - component: {fileID: 586698840}
   - component: {fileID: 586698839}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: GameplayCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6228,6 +6228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1230649916}
+  - component: {fileID: 1230649918}
   - component: {fileID: 1230649915}
   - component: {fileID: 1230649917}
   m_Layer: 0
@@ -6249,13 +6250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031087011c4dd2e4cb2fdf3329698a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1593412123}
-  title: {fileID: 1822850362}
-  subtitle: {fileID: 928275699}
-  tip: {fileID: 1825078335}
-  titleGamePlay: {fileID: 1103555868}
-  hitScore: {fileID: 866050957}
-  missScore: {fileID: 2124678504}
+  gameSceneUI: {fileID: 1230649918}
   newNoteTriggerHelper: {fileID: 1513364460}
   destroyerTriggerHelper: {fileID: 731434771}
   leftMarkTrigger: {fileID: 689405545}
@@ -6263,7 +6258,6 @@ MonoBehaviour:
   rightMarkTrigger: {fileID: 669068670}
   downMarkTrigger: {fileID: 177843940}
   noteObject: {fileID: 7157379929592125608, guid: 600337e3c98a86d4c9965d0a76c8c57b, type: 3}
-  animator: {fileID: 1230649917}
 --- !u!4 &1230649916
 Transform:
   m_ObjectHideFlags: 0
@@ -6298,6 +6292,26 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1230649918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230649914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07405816aa63c5b4d99165c4dd74289b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1230649917}
+  overlayCanvas: {fileID: 1593412123}
+  overlayTitle: {fileID: 1822850362}
+  overlaySubtitle: {fileID: 928275699}
+  overlayTip: {fileID: 1825078335}
+  titleGameplay: {fileID: 1103555868}
+  missScoreGameplay: {fileID: 2124678504}
+  hitScoreGameplay: {fileID: 866050957}
 --- !u!4 &1299750961 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5621596321422144224, guid: 64cd13e9c40d46c4bbd88a6faf78f549, type: 3}
@@ -6617,7 +6631,7 @@ GameObject:
   - component: {fileID: 1593412122}
   - component: {fileID: 1593412121}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: OverlatCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
