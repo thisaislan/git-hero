@@ -7,6 +7,8 @@ namespace Githero.Menu.Managers
 {
     public class MenuManager : MonoBehaviour
     {
+        [SerializeField]
+        private Animator animator;
 
         [SerializeField]
         private InputField inputField;
@@ -115,11 +117,8 @@ namespace Githero.Menu.Managers
         private string CapitalizeFirstLetter(string value) =>
             value.Substring(0, 1).ToUpper() + value.Remove(0, 1).ToLower();
 
-        private void StartCloseSceneAnimation()
-        {
-            var animator = GetComponent<Animator>();
+        private void StartCloseSceneAnimation() =>
             animator.SetTrigger(TriggerCloseScene);
-        }
 
     }
 

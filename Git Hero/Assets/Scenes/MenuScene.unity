@@ -891,6 +891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3232014f0303f49ba38e1ee78d8058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1164985276}
   inputField: {fileID: 360937441}
   loadingTrasnform: {fileID: 1892434818}
   errorText: {fileID: 1838916002}
