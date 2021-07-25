@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Githero.Game.Helpers;
+using UnityEngine;
 
 namespace Githero.Game.GameObjects
 {
@@ -7,8 +8,21 @@ namespace Githero.Game.GameObjects
         [SerializeField, Range(0, 3)]
         private int markPosition;
 
-        private void Awake() =>
+        [SerializeField]
+        private TriggerHelper triggerHelper;
+
+        public GameObject GameObjectOnCollision { get; private set; }
+
+        private void Awake()
+        {
+            triggerHelper.ActionOnTriggerEnter = (collider) =>
+                GameObjectOnCollision = collider.gameObject;
+
+            triggerHelper.ActionOnTriggerExit = (collider) =>
+                GameObjectOnCollision = null;
+
             SetColor();
+        }
 
         public void SetColor()
         {
