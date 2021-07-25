@@ -127,10 +127,11 @@ namespace Githero.Game.Managers
 
         private void HandleArrowInput(Mark mark)
         {
+            var noteOnColision = mark.GameObjectOnCollision;
 
-            if (mark.GameObjectOnCollision != null)
+            if (noteOnColision != null)
             {
-                Destroy(mark.GameObjectOnCollision);
+                Destroy(noteOnColision);
                 gameSceneUI.NewHit();
             }
             else
