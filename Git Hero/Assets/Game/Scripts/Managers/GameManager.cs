@@ -21,20 +21,19 @@ namespace Githero.Game.Managers
         private TriggerHelper destroyerTriggerHelper;
 
         [SerializeField]
-        private TriggerHelper leftMarkTrigger;
+        private Mark leftMark;
 
         [SerializeField]
-        private TriggerHelper upMarkTrigger;
+        private Mark upMark;
 
         [SerializeField]
-        private TriggerHelper rightMarkTrigger;
+        private Mark rightMark;
 
         [SerializeField]
-        private TriggerHelper downMarkTrigger;
+        private Mark downMark;
 
         [SerializeField]
         private Transform noteObject;
-
 
         private const int MaxSheetMusicSize = 25;
         private const int NumberOfNotes = 4;
@@ -54,9 +53,6 @@ namespace Githero.Game.Managers
 
         private bool hasMoreLinesToRead = true;
         private int skipLines = 0;
-
-        public void StartGame() =>
-            AddNewNotes(MaxSheetMusicSize, SpawnNote);
 
         private void Awake()
         {
@@ -82,9 +78,9 @@ namespace Githero.Game.Managers
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                if (leftMarkTrigger.OnTrigger)
+                if (leftMark.GameObjectOnCollision != null)
                 {
-                    Destroy(leftMarkTrigger.GameObjectOnCollision);
+                    Destroy(leftMark.GameObjectOnCollision);
                     gameSceneUI.NewHit();
                 }
                 else
@@ -94,9 +90,9 @@ namespace Githero.Game.Managers
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                if (upMarkTrigger.OnTrigger)
+                if (upMark.GameObjectOnCollision != null)
                 {
-                    Destroy(upMarkTrigger.GameObjectOnCollision);
+                    Destroy(upMark.GameObjectOnCollision);
                     gameSceneUI.NewHit();
                 }
                 else
@@ -106,9 +102,9 @@ namespace Githero.Game.Managers
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                if (rightMarkTrigger.OnTrigger)
+                if (rightMark.GameObjectOnCollision != null)
                 {
-                    Destroy(rightMarkTrigger.GameObjectOnCollision);
+                    Destroy(rightMark.GameObjectOnCollision);
                     gameSceneUI.NewHit();
                 }
                 else
@@ -118,9 +114,9 @@ namespace Githero.Game.Managers
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (downMarkTrigger.OnTrigger)
+                if (downMark.GameObjectOnCollision != null)
                 {
-                    Destroy(downMarkTrigger.GameObjectOnCollision);
+                    Destroy(downMark.GameObjectOnCollision);
                     gameSceneUI.NewHit();
                 }
                 else
@@ -129,6 +125,9 @@ namespace Githero.Game.Managers
                 }
             }
         }
+
+        public void StartGame() =>
+            AddNewNotes(MaxSheetMusicSize, SpawnNote);
 
         private void LoadMenuScene() => Core.App.LoadMenuScene();
 
