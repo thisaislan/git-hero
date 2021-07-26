@@ -87,13 +87,8 @@ namespace Githero.Game.Managers
 
         private void Update()
         {
-            switch (currentGameState)
-            {
-                case GameState.Open: HandleOpenStateInput(); break;
-                case GameState.Play: HandlePlayStateInput(); break;
-                // case GameState.Close: - Do nothing
-                default: break;
-            }
+            if (currentGameState == GameState.Open) { HandleOpenStateInput(); }
+            else { HandlePlayStateInput(); }
         }
 
         public void StartGame() =>
