@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Githero.Game.GameObjects
 {
     public class Note : MonoBehaviour
     {
-        public void FixedUpdate()
+        public Color Color { get; private set; }
+
+        private void FixedUpdate()
         {
             var rigidbody = GetComponent<Rigidbody>();
 
@@ -13,7 +16,7 @@ namespace Githero.Game.GameObjects
                 ForceMode.Acceleration);
         }
 
-        public void SetColor(int numberOfNote)
+        public void Init(int numberOfNote)
         {
             string colorHex;
             Color color;
@@ -37,9 +40,13 @@ namespace Githero.Game.GameObjects
 
             if (ColorUtility.TryParseHtmlString(colorHex, out color))
             {
-                GetComponent<Renderer>().material.color = color;
+                this.Color = color;
+                SetNoteColor();
             }
         }
+
+        private void SetNoteColor() =>
+            GetComponent<Renderer>().material.color = Color;
 
     }
 

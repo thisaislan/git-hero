@@ -15,7 +15,7 @@ namespace Githero.Game.GameObjects
         [SerializeField]
         private GameObject haleObject;
 
-        public GameObject GameObjectOnCollision { get; private set; }
+        public Note NoteOnCollision { get; private set; }
 
         private const float ShineTime = 0.15f;
 
@@ -24,10 +24,10 @@ namespace Githero.Game.GameObjects
         private void Awake()
         {
             triggerHelper.ActionOnTriggerEnter = (collider) =>
-                GameObjectOnCollision = collider.gameObject;
+                NoteOnCollision = collider.gameObject.GetComponent<Note>();
 
             triggerHelper.ActionOnTriggerExit = (collider) =>
-                GameObjectOnCollision = null;
+                NoteOnCollision = null;
 
             SetColor();
         }
