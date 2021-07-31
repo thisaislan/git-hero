@@ -43,10 +43,10 @@ namespace Githero.Game.Managers
         private Mark upMark;
 
         [SerializeField]
-        private Mark rightMark;
+        private Mark downMark;
 
         [SerializeField]
-        private Mark downMark;
+        private Mark rightMark;
 
         [SerializeField]
         private Transform noteObject;
