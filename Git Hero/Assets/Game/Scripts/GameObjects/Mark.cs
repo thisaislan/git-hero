@@ -1,4 +1,5 @@
 ﻿using Githero.Game.Helpers;
+using System.Collections;
 using UnityEngine;
 
 namespace Githero.Game.GameObjects
@@ -11,7 +12,14 @@ namespace Githero.Game.GameObjects
         [SerializeField]
         private TriggerHelper triggerHelper;
 
+        [SerializeField]
+        private GameObject haleObject;
+
         public GameObject GameObjectOnCollision { get; private set; }
+
+        private const float ShineTime = 0.15f;
+
+        private bool isShining = false;
 
         private void Awake()
         {
@@ -50,6 +58,26 @@ namespace Githero.Game.GameObjects
             {
                 GetComponent<Renderer>().material.color = color;
             }
+        }
+
+        public void Shine()
+        {
+            if (!isShining)
+            {
+                isShining = true;
+                StartCoroutine(StarShine());
+            }
+        }
+
+        private IEnumerator StarShine()
+        {
+            haleObject.SetActive(true);
+
+            yield return new WaitForSeconds(ShineTime);
+
+            haleObject.SetActive(false);
+
+            isShining = false;
         }
 
     }

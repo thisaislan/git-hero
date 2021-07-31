@@ -124,6 +124,8 @@ namespace Githero.Game.Managers
         {
             var noteOnColision = mark.GameObjectOnCollision;
 
+            mark.Shine();
+
             if (noteOnColision != null)
             {
                 Destroy(noteOnColision);

@@ -6255,8 +6255,8 @@ MonoBehaviour:
   destroyerTriggerHelper: {fileID: 731434771}
   leftMark: {fileID: 287345837}
   upMark: {fileID: 417037301}
-  rightMark: {fileID: 220389257}
-  downMark: {fileID: 1136252476}
+  downMark: {fileID: 220389257}
+  rightMark: {fileID: 1136252476}
   noteObject: {fileID: 7157379929592125608, guid: 600337e3c98a86d4c9965d0a76c8c57b, type: 3}
 --- !u!4 &1230649916
 Transform:
@@ -6376,6 +6376,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.060000006
       objectReference: {fileID: 0}
+    - target: {fileID: 4559702398426911859, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_Color.rgba
+      value: 4286792544
+      objectReference: {fileID: 0}
     - target: {fileID: 6198759721210799377, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
       propertyPath: m_Name
       value: Mark4
@@ -6383,6 +6387,14 @@ PrefabInstance:
     - target: {fileID: 6484995814729956780, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
       propertyPath: markPosition
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7499114595819486297, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433191380184771883, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8958061702227488426, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
       propertyPath: m_LocalRotation.z
@@ -6526,6 +6538,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.060000006
       objectReference: {fileID: 0}
+    - target: {fileID: 4559702398426911859, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_Color.rgba
+      value: 4285303789
+      objectReference: {fileID: 0}
     - target: {fileID: 6198759721210799377, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
       propertyPath: m_Name
       value: Mark2
@@ -6533,6 +6549,10 @@ PrefabInstance:
     - target: {fileID: 6484995814729956780, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
       propertyPath: markPosition
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433191380184771883, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
@@ -6872,6 +6892,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.060000006
       objectReference: {fileID: 0}
+    - target: {fileID: 4559702398426911859, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_Color.rgba
+      value: 4294924084
+      objectReference: {fileID: 0}
     - target: {fileID: 6198759721210799377, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
       propertyPath: m_Name
       value: Mark3
@@ -6879,6 +6903,10 @@ PrefabInstance:
     - target: {fileID: 6484995814729956780, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
       propertyPath: markPosition
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433191380184771883, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
@@ -7591,9 +7619,29 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.060000006
       objectReference: {fileID: 0}
+    - target: {fileID: 4559702398426911859, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_Color.rgba
+      value: 4283770024
+      objectReference: {fileID: 0}
     - target: {fileID: 6198759721210799377, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
       propertyPath: m_Name
       value: Mark1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7499114595819486297, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7499114595819486297, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 7499114595819486297, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433191380184771883, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8958061702227488426, guid: 41bacaac2cb916143af4b3923a985890, type: 3}
       propertyPath: m_LocalRotation.y
