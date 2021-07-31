@@ -5,6 +5,7 @@ using Githero.Game.Helpers;
 using Githero.Game.GameObjects;
 using System;
 using Githero.UI;
+using static UnityEngine.ParticleSystem;
 
 namespace Githero.Game.Managers
 {
@@ -43,13 +44,20 @@ namespace Githero.Game.Managers
         private Mark upMark;
 
         [SerializeField]
-        private Mark rightMark;
-
-        [SerializeField]
         private Mark downMark;
 
         [SerializeField]
+        private Mark rightMark;
+
+        [SerializeField]
         private Transform noteObject;
+
+        [SerializeField]
+        private GameObject explosion;
+
+        private ParticleSystem explosionParticleSystem;
+
+        private MainModule mainModuleExplosionParticleSystem;
 
         private const int MaxSheetMusicSize = 25;
         private const int NumberOfNotes = 4;
@@ -73,8 +81,11 @@ namespace Githero.Game.Managers
 
         private void Awake()
         {
-            gameSceneUI.SetGameplayTitle(Core.App.NameOfGitProject);
+            explosionParticleSystem = explosion.GetComponent<ParticleSystem>();
+            mainModuleExplosionParticleSystem = explosionParticleSystem.main;
 
+            gameSceneUI.SetGameplayTitle(Core.App.NameOfGitProject);
+            
             newNoteTriggerHelper.ActionOnTriggerEnter = (_) => SpawnNote();
 
             destroyerTriggerHelper.ActionOnTriggerEnter = (collider) =>
@@ -122,17 +133,28 @@ namespace Githero.Game.Managers
 
         private void HandleArrowInput(Mark mark)
         {
-            var noteOnColision = mark.GameObjectOnCollision;
+            var noteOnColision = mark.NoteOnCollision;
+
+            mark.Shine();
 
             if (noteOnColision != null)
             {
-                Destroy(noteOnColision);
+                PlayExplosion(noteOnColision.transform.position, noteOnColision.Color);
+
+                Destroy(noteOnColision.gameObject);
                 gameSceneUI.NewHit();
             }
             else
             {
                 gameSceneUI.NewMiss();
             }
+        }
+
+        private void PlayExplosion(Vector3 position, Color color)
+        {
+            explosion.transform.position = position;
+            mainModuleExplosionParticleSystem.startColor = color;
+            explosionParticleSystem.Play();
         }
 
         private void LoadMenuScene() => Core.App.LoadMenuScene();
@@ -216,7 +238,7 @@ namespace Githero.Game.Managers
 
             var noteInstance = Instantiate(noteObject, notePosition, noteObject.rotation);
 
-            noteInstance.GetComponent<Note>().SetColor(note);
+            noteInstance.GetComponent<Note>().Init(note);
         }
 
         private float GetNoteXPosition(int note)
