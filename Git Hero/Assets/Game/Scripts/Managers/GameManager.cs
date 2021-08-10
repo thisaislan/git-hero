@@ -140,6 +140,7 @@ namespace Githero.Game.Managers
             if (noteOnColision != null)
             {
                 PlayExplosion(noteOnColision.transform.position, noteOnColision.Color);
+                mark.Play();
 
                 Destroy(noteOnColision.gameObject);
                 gameSceneUI.NewHit();

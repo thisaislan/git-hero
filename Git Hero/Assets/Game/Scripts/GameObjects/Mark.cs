@@ -1,4 +1,5 @@
 ﻿using Githero.Game.Helpers;
+using Githero.Managers;
 using System.Collections;
 using UnityEngine;
 
@@ -13,7 +14,10 @@ namespace Githero.Game.GameObjects
         private TriggerHelper triggerHelper;
 
         [SerializeField]
-        private GameObject haleObject;
+        private GameObject halo;
+
+        [SerializeField]
+        private AudioSource audioSource;        
 
         public Note NoteOnCollision { get; private set; }
 
@@ -69,13 +73,16 @@ namespace Githero.Game.GameObjects
             }
         }
 
+        public void Play() =>
+            AudioManager.Instance.PlayAudioSource(audioSource);
+
         private IEnumerator StarShine()
         {
-            haleObject.SetActive(true);
+            halo.SetActive(true);
 
             yield return new WaitForSeconds(ShineTime);
 
-            haleObject.SetActive(false);
+            halo.SetActive(false);
 
             isShining = false;
         }
