@@ -6,6 +6,7 @@ using Githero.Game.GameObjects;
 using System;
 using Githero.UI;
 using static UnityEngine.ParticleSystem;
+using Githero.Managers;
 
 namespace Githero.Game.Managers
 {
@@ -54,6 +55,9 @@ namespace Githero.Game.Managers
 
         [SerializeField]
         private GameObject explosion;
+
+        [SerializeField]
+        private AudioSource baseAudioSource;
 
         private ParticleSystem explosionParticleSystem;
 
@@ -120,6 +124,7 @@ namespace Githero.Game.Managers
             {
                 currentGameState = GameState.Play;
                 gameSceneUI.StarPlayAnimation();
+                AudioManager.Instance.PlayBackgroundAudioSource(baseAudioSource, this);
             }
         }
 
@@ -222,6 +227,7 @@ namespace Githero.Game.Managers
                 {
                     currentGameState = GameState.Close;
                     gameSceneUI.StartCloseScene();
+                    AudioManager.Instance.StopBackgroundAudioSource(this);
                 }
             }
         }
