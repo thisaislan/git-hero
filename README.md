@@ -3,7 +3,7 @@
 </a>
 
 # Git Hero
-Every time I see a git tree I think it would be cool if I could play guitar hero with it. So I decided to create my own guitar (ou bass) hero with a git tree.
+Every time I see a git tree I think it would be cool if I could play guitar hero with it. So I decided to create my own guitar (or bass) hero with a git tree.
 
 ## Table of Contents
 - [How it works](#How-it-works)
