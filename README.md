@@ -9,7 +9,7 @@ Every time I see a git tree I think it would be cool if I could play guitar hero
 - [How it works](#How-it-works)
 - [Prerequisites](#Prerequisites)
 - [There is something serious about this project](#There-is-something-serious-about-this-project)
-- [Something else?](#Something-else?)
+- [Something else](#Something-else)
 - [Thanks](#Thanks)
 - [Links](#Links)
 - [License](#License)
@@ -37,7 +37,7 @@ Of course in order to create that kind of audio analysis we first need to create
 Ok, ok, now you may think, why will we do that? Simple, to have one more way to complement a project health analysis, in the same way we have a visual analysis system, we can create audio analysis systems. I know, it may sound like a crazy idea, but every concept is a little crazy on its start.
 
 
-## Something else?
+## Something else
 I would like to say that this kind of audio system to git analysis will help people with some kind of visual difficulties. But I really don't know. In that case I hope so, and I hope that project will help us think about git, including people and analysis systems in another way. And, no less important, I hope you enjoy the game :slightly_smiling_face:
 
 ## Thanks
